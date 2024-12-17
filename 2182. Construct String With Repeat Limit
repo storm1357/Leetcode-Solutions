@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string repeatLimitedString(string s, int repeatLimit) {
+        vector<int> count(26,0);
+        for(auto ch:s){
+            count[(int)(ch-'a')]++;
+        }
+        string ans="";
+        for(int i=25;i>=0;i--){
+            while(count[i]>repeatLimit){
+                ans+=string(repeatLimit,'a'+i);
+                count[i]-=repeatLimit;
+                bool found = false;
+                for(int j=i-1;j>=0;j--){
+                    if(count[j]>0){
+                        ans+=('a'+j);
+                        count[j]--;
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found) return ans;
+            }
+            if(count[i]!=0){
+                ans+=string(count[i],'a'+i);
+                count[i]=0;
+            }
+        }
+        return ans;
+    }
+};
