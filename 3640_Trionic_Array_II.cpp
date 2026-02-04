@@ -2,7 +2,7 @@ class Solution {
 public:
     long long maxSumTrionic(vector<int>& nums) {
         long long ans=-1e18;
-        long long prev=nums[0];
+        long long pre=nums[0];
         int n=nums.size();
         long long a=-1e17;
         long long b=-1e17;
@@ -13,16 +13,16 @@ public:
             long long nc=-1e17;
             long long curr=nums[i];
             if(curr>prev){
-                na=max(a, prev)+curr;
+                na=max(a, pre)+curr;
                 nc=max(b, c)+curr;
-            }else if(curr<prev){
+            }else if(curr<pre){
                 nb=max(b, a)+curr;
             }
             a=na;
             b=nb;
             c=nc;
             ans=max(ans, c);
-            prev=curr;
+            pre=curr;
         }
         return ans;
     }
