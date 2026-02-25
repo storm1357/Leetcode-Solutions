@@ -1,0 +1,15 @@
+class Solution {
+public:
+    static bool check(int a, int b){
+        int sb1=__builtin_popcount(a);
+        int sb2=__builtin_popcount(b);
+        if(sb1==sb2){
+            return a<b;
+        }
+        return sb1<sb2;
+    }
+    vector<int> sortByBits(vector<int>& arr) {
+        sort(arr.begin(), arr.end(), check);
+        return arr;
+    }
+};
