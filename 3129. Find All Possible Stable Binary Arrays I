@@ -1,0 +1,31 @@
+class Solution {
+public:
+    using ll = long long int;
+    ll dp[201][201][2];
+    int mod = 1000000007;
+    ll find(int a, int b, int l, int n) {
+        if (a == 0 && b == 0)
+            return 1;
+        if (a < 0 || b < 0)
+            return 0;
+        if (dp[a][b][l] != -1)
+            return dp[a][b][l];
+        ll res = 0;
+        for (int i = 1; i <= n; i++) {
+            if (l)
+                res = (res + find(a - i, b, 0, n)) % mod;
+            else
+                res = (res + find(a, b - i, 1, n)) % mod;
+        }
+        return dp[a][b][l] = res;
+    }
+    int numberOfStableArrays(int a, int b, int n) {
+        memset(dp, -1, sizeof(dp));
+        ll res = 0;
+        for (int i = 1; i <= n; i++)
+            res = (res + find(a - i, b, 0, n)) % mod;
+        for (int i = 1; i <= n; i++)
+            res = (res + find(a, b - i, 1, n)) % mod;
+        return res;
+    }
+};
